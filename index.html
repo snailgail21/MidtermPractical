@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NEIU Main Campus Map for Environmental Science Students</title>
+
+         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+           crossorigin=""/>
+
+         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+           crossorigin=""></script>
+
+    </head>
+
+    <body>
+        <div id="map" style="height: 500px"></div>
+
+        <script type="text/javascript">
+
+          var map = L.map('map', {
+              center: [41.9797333,-87.7187576],
+              zoom: 16
+          });
+		  
+		  var streets = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+               attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012',
+               maxZoom: 20,
+               minZoom: 10
+            }).addTo(map);
+		var imagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+		});
+
+		var basemaps = {
+			"World Street Map": streets,
+			"Satellite Imagery": imagery
+		};
+
+		L.control.layers(basemaps).addTo(map);
+
+		var scienceIcon = L.icon({
+			iconUrl: 'science.png', // url that links to the icon image file, saved in the same folder as the current page 
+			iconSize:     [30, 30], // size of the icon image in pixels
+			iconAnchor:   [15, 19], // the top left corner of the icon will be aligned so that this point is at the marker's geographical location
+			popupAnchor:  [0, -10] // point from which the popup should open, relative to the iconAnchor
+		});
+		var helpIcon = L.icon({
+			iconUrl: 'help.png', // url that links to the icon image file, saved in the same folder as the current page 
+			iconSize:     [30, 30], // size of the icon image in pixels
+			iconAnchor:   [19, 19], // the top left corner of the icon will be aligned so that this point is at the marker's geographical location
+			popupAnchor:  [0, -10], // point from which the popup should open, relative to the iconAnchor
+		});
+		var libraryIcon = L.icon({
+			iconUrl: 'library.png', // url that links to the icon image file, saved in the same folder as the current page 
+			iconSize:     [30, 30], // size of the icon image in pixels
+			iconAnchor:   [17, 15], // the top left corner of the icon will be aligned so that this point is at the marker's geographical location
+			popupAnchor:  [0, -10] // point from which the popup should open, relative to the iconAnchor
+		});
+		var gardenIcon = L.icon({
+			iconUrl: 'gardening.png', // url that links to the icon image file, saved in the same folder as the current page 
+			iconSize:     [30, 30], // size of the icon image in pixels
+			iconAnchor:   [12, 15], // the top left corner of the icon will be aligned so that this point is at the marker's geographical location
+			popupAnchor:  [0, -10] // point from which the popup should open, relative to the iconAnchor
+		});
+		
+		var marker1 = L.marker([41.9806306,-87.7165800], {icon: scienceIcon, alt: 'BBH 217B - Dr. Anderson\'s Office'}).addTo(map);
+		var marker2 = L.marker([41.9803226,-87.7165831], {icon: scienceIcon, alt: 'BBH 377 - Greenhouse'}).addTo(map);
+		var marker3 = L.marker([41.9815403,-87.718823], {icon: helpIcon, alt: 'Welcome Desk'}).addTo(map);
+		var marker4 = L.marker([41.9803221,-87.7190032], {icon: libraryIcon, alt: 'Ronald Williams Library'}).addTo(map);
+		var marker5 = L.marker([41.9767037,-87.7165034], {icon: gardenIcon, alt: 'Neiu\'s Community Garden'}).addTo(map);
+		
+		marker1.bindPopup("BBH 217B - Dr. Anderson's Office (current head of the Environmental Science program");
+		marker2.bindPopup("BBH 377 - Greenhouse");
+		marker3.bindPopup("Welcome Desk");
+		marker4.bindPopup("Ronald Williams Library");
+		marker5.bindPopup("Community Garden");
+		
+		var pic1 = '<img src="https://www.neiu.edu/sites/default/files/styles/wide/public/2025-01/Anderson_Greg.webp?itok=dZi3RXck" alt="Picture of Dr. Anderson." width="100">';
+		var pic2 = '<img src="https://www.neiu.edu/sites/default/files/inline-images/BOTTOM-Camp_Greenhouse_220-8851-2.jpg" alt="Four students handling and measuring plant sprouts for a research project inside NEIU\'s greenhouse." width="200">';
+		var pic3 = '<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXGPU9099cs9VWPvsxd_RHQOdgXE0cDuH8X_D1_ZPuU8KKJL6AYjScXjc&s=10" alt="Three welcome desk employees pose behind the welcome desk." width="200">';
+		var pic4 = '<img src="https://d2dzi65yjecjnt.cloudfront.net/837050.jpg" alt="Northeast side of the Ronald Williams Library building." width="200">';
+		var pic5 = '<img src="https://neiuindependent.org/wp-content/uploads/2023/10/IMG20230912155014-1200x900.jpg" alt="Four students working to turn an abandoned tennis court into a community garden. Plants are planted into two raised beds." width="200">';
+		
+		marker1.bindPopup('<p style="color:green; font-weight:bold"> Bernard J. Brommel Hall (NEIU\'s Science Building) - BBH 217B <br> Dr. Anderson\'s Office (current head of the Environmental Science program) <br> He is the Environmental Science advisor and you can go to him with any questions relating to the program. </p>' + pic1);
+		marker2.bindPopup('<p style="color:green; font-weight:bold"> Bernard J. Brommel Hall (NEIU\'s Science Building) - BBH 377 <br> At the greenhouse, you can admire the variety of plants the greenhouse staff cares for, store plants used for research projects, and help with native planting workshops! </p>' + pic2);
+		marker3.bindPopup('<p style="color:blue; font-weight:bold"> Welcome Desk - Village Square <br> They are able to help with questions related to campus information and resources.</p>' + pic3);
+		marker4.bindPopup('<p style="color:red; font-weight:bold"> Ronald Williams Library <br> Among the many things you can do at the library, you can check out books, reserve a study room, and attend events and exhibits hosted on the first floor.</p>' + pic4);
+		marker5.bindPopup('<p style="color:green; font-weight:bold"> NEIU\'s Community Garden - South of the tennis courts <br>Join the Green Conservation Group tend to and harvest produce grown in the community garden!</p>' + pic5);
+		
+		</script>
+	</body>
+</html>		  
